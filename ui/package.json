@@ -13,14 +13,18 @@
     "@polkadot/extension-dapp": "^0.58.8",
     "@polkadot/extension-inject": "^0.58.8",
     "@polkadot/types": "^15.9.2",
+    "axios": "^1.9.0",
     "comlink": "^4.4.2",
     "dotenv": "^16.5.0",
     "ethers": "^6.13.7",
     "next": "15.3.1",
-    "o1js": "^1.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
     "wagmi": "^2.15.0"
+  },
+  "peerDependencies": {
+    "o1js": "^1.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

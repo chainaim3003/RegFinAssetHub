@@ -18,7 +18,6 @@ export const ORACLE_PRIVATE_KEYS = {
   BPMN: BPMN_PRIVATE_KEY || '',
   RISK: RISK_PRIVATE_KEY || ''
 };
-console.log('ORACLE_PRIVATE_KEYS', ORACLE_PRIVATE_KEYS);
 
 // Validate that all required private keys are present
 export function validateOracleKeys(): void {

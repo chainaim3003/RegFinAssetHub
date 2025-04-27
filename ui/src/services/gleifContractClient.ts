@@ -37,6 +37,7 @@ export default class GLEIFContractClient {
   }
 
   async verifyCompliance(proof: GLEIFProof) {
+
     return this.remoteApi.verifyCompliance(proof);
   }
 

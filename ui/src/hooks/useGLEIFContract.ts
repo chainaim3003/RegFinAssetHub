@@ -13,9 +13,14 @@ export function useGLEIFContract() {
     setLoading(true);
     setError(null);
     try {
+      await client.setActiveInstanceToDevnet();
+      await client.fetchAccount(CONTRACT_ADDRESS);
+      await client.loadContract();
+      await client.compileContract();
+      await client.initZkappInstance(CONTRACT_ADDRESS);
       await client.verifyCompliance(proof);
       await client.proveTransaction();
-      await loadContractState(); // Refresh state after verification
+      // await loadContractState(); // Refresh state after verification
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {

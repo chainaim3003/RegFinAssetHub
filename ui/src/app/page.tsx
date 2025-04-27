@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import WalletSelector from '../components/WalletSelector';
 import {
@@ -9,9 +9,11 @@ import {
 } from '../polkadot/api';
 import { OracleManager } from '../components/OracleManager';
 import { useGLEIFContract } from '../hooks/useGLEIFContract';
-import { GLEIFProof } from '../contracts/GLEIFZKProgramWithSign';
+import { GLEIFProof, GLEIFPublicOutput } from '@contracts/src/contracts/GLEIFZKProgramWithSign';
 import { InvoiceNFTManager } from '@/components/InvoiceNFTManager';
 import { useWallet } from '@/hooks/useWallet';
+import { useInvoiceNFT } from '../hooks/useInvoiceNFT';
+import { Field, CircuitString } from 'o1js';
 
 type ComplianceStatus = 'PENDING' | 'VALID' | 'INVALID' | 'FROZEN';
 
@@ -32,6 +34,14 @@ export default function Home() {
   const [recipientAddress, setRecipientAddress] = useState('');
   const { verifyCompliance, contractState, loadContractState } = useGLEIFContract();
   const { account, loading: walletLoading, error, connectWallet } = useWallet();
+  const { nfts, setCompliant, loadNFTs } = useInvoiceNFT();
+  const [selectedTokenId, setSelectedTokenId] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (account) {
+      loadNFTs();
+    }
+  }, [account, loadNFTs]);
 
   const handleAccountSelect = (account: InjectedAccountWithMeta) => {
     setSelectedAccount(account);
@@ -45,22 +55,31 @@ export default function Home() {
   };
 
   const handleVerifyCompliance = async (proofType: 'GIELF' | 'ComposedLevel') => {
-    if (!selectedAccount) return;
+    if (!selectedAccount || !selectedTokenId) {
+      setStatus('Please select a token first');
+      return;
+    }
 
     setLoading(true);
     setStatus('Verifying compliance...');
     try {
-      // Create a GLEIF proof (you'll need to implement this based on your requirements)
+      // Create a GLEIF proof
       const proof = new GLEIFProof({
         proof: {},
-        publicInput: {},
-        publicOutput: {},
+        publicInput: new Field(0),
+        publicOutput: new GLEIFPublicOutput({
+          name: CircuitString.fromString(''),
+          id: CircuitString.fromString('')
+        }),
         maxProofsVerified: 0
       });
 
       // Verify compliance using the GLEIF contract
       await verifyCompliance(proof);
-      await loadContractState(); // Refresh contract state
+      // await loadContractState(); // Refresh contract state
+
+      // Update compliance status in the smart contract
+      await setCompliant(selectedTokenId, 0, true);
 
       setComplianceProof({
         type: proofType,
@@ -236,19 +255,39 @@ export default function Home() {
           {currentStep === 2 && (
             <div className="space-y-6">
               <h2 className="text-2xl font-semibold text-black">Verify Compliance</h2>
+
+              {/* Token Selection */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Select Token
+                </label>
+                <select
+                  value={selectedTokenId || ''}
+                  onChange={(e) => setSelectedTokenId(Number(e.target.value))}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-black"
+                >
+                  <option value="">Select a token</option>
+                  {nfts.map((nft) => (
+                    <option key={nft.tokenId} value={nft.tokenId}>
+                      Token ID: {nft.tokenId} - {nft.complianceVerified ? 'Verified' : 'Not Verified'}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <button
                   onClick={() => handleVerifyCompliance('GIELF')}
-                  disabled={loading}
-                  className="p-4 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors"
+                  disabled={loading || !selectedTokenId}
+                  className="p-4 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <h3 className="font-semibold text-black">GIELF Proof</h3>
                   <p className="text-sm text-black">Verify using GIELF compliance standard</p>
                 </button>
                 <button
                   onClick={() => handleVerifyCompliance('ComposedLevel')}
-                  disabled={loading}
-                  className="p-4 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-colors"
+                  disabled={loading || !selectedTokenId}
+                  className="p-4 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <h3 className="font-semibold text-black">ComposedLevel Proof</h3>
                   <p className="text-sm text-black">Verify using ComposedLevel compliance standard</p>
