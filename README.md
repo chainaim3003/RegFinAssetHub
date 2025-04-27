@@ -83,3 +83,12 @@ https://youtu.be/d_m2fXgiAT8
 
 
 ![ss-5](https://github.com/user-attachments/assets/43ae95c4-d99b-4663-a605-325a0ef2dd26)
+
+
+## Issues Faced and Workarounds ( Finally got it to work on PolkaVm / Remix Polkadot deploy ).  Feedback forme filled also.
+
+
+
+[AssetHub-IssuesAndWorkarounds.docx](https://github.com/user-attachments/files/19930586/AssetHub-IssuesAndWorkarounds.docx)
+
+
