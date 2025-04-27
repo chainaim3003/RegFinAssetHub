@@ -53,12 +53,13 @@ export function useMarketplace() {
       setError(null);
       const contract = await getSignedContract();
       const [owner, price, isCompliant] = await contract.getInvoice(id);
+      const isFrozen = await contract.frozen(id);
       return {
         id,
         owner,
         price: formatEther(price),
         isCompliant,
-        isFrozen: false, // TODO: Add frozen status check
+        isFrozen, // TODO: Add frozen status check
       };
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to get invoice details');

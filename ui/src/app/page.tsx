@@ -150,7 +150,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <main className="max-w-4xl mx-auto p-8">
         <h1 className="text-4xl font-bold mb-12 text-center text-black">
-          AssetHub Compliance Portal
+          Web3 AssetHub Compliance
         </h1>
         <div className="flex justify-between items-center mb-8">
           {!account ? (
@@ -169,8 +169,8 @@ export default function Home() {
           )}
         </div>
 
-        {loading && <div className="text-center py-4">Loading...</div>}
-        {error && <div className="text-red-500 text-center py-4">{error}</div>}
+        {/* {loading && <div className="text-center py-4">Loading...</div>} */}
+        {/* {error && <div className="text-red-500 text-center py-4">{error}</div>} */}
 
         {account && (
           <div className="space-y-8">

@@ -18,7 +18,7 @@ export function Marketplace() {
 
   const [invoices, setInvoices] = useState<MarketplaceInvoice[]>([]);
   const [newInvoicePrice, setNewInvoicePrice] = useState('');
-  const [selectedInvoice, setSelectedInvoice] = useState<MarketplaceInvoice | null>(null);
+  const [selectedInvoice] = useState<MarketplaceInvoice | null>(null);
   const [compliancePrice, setCompliancePrice] = useState('');
   const [isCompliant, setIsCompliant] = useState(true);
 
@@ -35,7 +35,7 @@ export function Marketplace() {
       const exampleInvoices = await Promise.all([
         getInvoiceDetails(1),
         getInvoiceDetails(2),
-        getInvoiceDetails(3),
+        // getInvoiceDetails(3),
       ]);
       setInvoices(exampleInvoices);
     } catch (err) {
