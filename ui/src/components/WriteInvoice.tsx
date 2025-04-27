@@ -11,7 +11,7 @@ interface WriteInvoiceProps {
 
 const WriteInvoice = ({ account, onSuccess }: WriteInvoiceProps) => {
   const [price, setPrice] = useState('');
-  const [status, setStatus] = useState({ type: 'info' | 'error' | 'success', message: '' });
+  const [status, setStatus] = useState({ type: 'info' as 'info' | 'error' | 'success', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleCreate = async (e: React.FormEvent) => {
@@ -56,12 +56,13 @@ const WriteInvoice = ({ account, onSuccess }: WriteInvoiceProps) => {
     } catch (err) {
       console.error('Error creating invoice:', err);
 
-      if (err.code === 4001) {
+      if (err instanceof Error && 'code' in err && err.code === 4001) {
         setStatus({ type: 'error', message: 'Transaction rejected by user.' });
       } else {
         setStatus({
           type: 'error',
-          message: `Error: ${err.message || 'Failed to create invoice'}`,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          message: `Error: ${(err as any).message || 'Failed to create invoice'}`,
         });
       }
     } finally {
@@ -69,6 +70,7 @@ const WriteInvoice = ({ account, onSuccess }: WriteInvoiceProps) => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleBuy = async (id: number) => {
     if (!account) {
       setStatus({ type: 'error', message: 'Please connect your wallet first' });
@@ -103,12 +105,13 @@ const WriteInvoice = ({ account, onSuccess }: WriteInvoiceProps) => {
     } catch (err) {
       console.error('Error buying invoice:', err);
 
-      if (err.code === 4001) {
+      if (err instanceof Error && 'code' in err && err.code === 4001) {
         setStatus({ type: 'error', message: 'Transaction rejected by user.' });
       } else {
         setStatus({
           type: 'error',
-          message: `Error: ${err.message || 'Failed to buy invoice'}`,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          message: `Error: ${(err as any).message || 'Failed to buy invoice'}`,
         });
       }
     } finally {

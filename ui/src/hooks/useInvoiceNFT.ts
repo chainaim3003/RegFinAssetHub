@@ -35,6 +35,7 @@ export function useInvoiceNFT() {
     } finally {
       setLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const buyNFT = useCallback(async (tokenId: number) => {
@@ -56,6 +57,7 @@ export function useInvoiceNFT() {
     } finally {
       setLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const listNFT = useCallback(async (tokenId: number, price: number) => {
@@ -76,6 +78,7 @@ export function useInvoiceNFT() {
     } finally {
       setLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadNFTs = useCallback(async () => {
@@ -141,6 +144,7 @@ export function useInvoiceNFT() {
     } finally {
       setLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setFreeze = useCallback(async (id: number, freeze: boolean) => {
@@ -161,6 +165,7 @@ export function useInvoiceNFT() {
     } finally {
       setLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {

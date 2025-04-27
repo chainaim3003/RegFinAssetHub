@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useInvoiceNFT } from '../hooks/useInvoiceNFT';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface ComplianceVerificationProps {
   account: string | null;
@@ -12,6 +12,7 @@ export function ComplianceVerification({ account }: ComplianceVerificationProps)
   const { nfts, setCompliant, loading } = useInvoiceNFT();
   const [selectedTokenId, setSelectedTokenId] = useState<number | null>(null);
   const [price, setPrice] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isCompliant, setIsCompliant] = useState(true);
 
   const handleVerifyCompliance = async (standard: 'GIELF' | 'ComposedLevel') => {

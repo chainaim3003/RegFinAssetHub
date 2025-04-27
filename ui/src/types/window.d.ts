@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface Window {
   ethereum?: {
     request: (args: { method: string; params?: any[] }) => Promise<any>;

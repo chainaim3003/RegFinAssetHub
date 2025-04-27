@@ -26,6 +26,7 @@ export function Marketplace() {
     if (account) {
       loadInvoices();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account]);
 
   const loadInvoices = async () => {

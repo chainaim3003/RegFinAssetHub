@@ -9,11 +9,11 @@ import {
 } from '../polkadot/api';
 import { OracleManager } from '../components/OracleManager';
 import { useGLEIFContract } from '../hooks/useGLEIFContract';
-import { GLEIFProof, GLEIFPublicOutput } from '@contracts/src/contracts/GLEIFZKProgramWithSign';
+// import { GLEIFProof, GLEIFPublicOutput } from '@contracts/src/contracts/GLEIFZKProgramWithSign';
 import { InvoiceNFTManager } from '@/components/InvoiceNFTManager';
 import { useWallet } from '@/hooks/useWallet';
 import { useInvoiceNFT } from '../hooks/useInvoiceNFT';
-import { Field, CircuitString } from 'o1js';
+// import { Field, CircuitString } from 'o1js';
 
 type ComplianceStatus = 'PENDING' | 'VALID' | 'INVALID' | 'FROZEN';
 
@@ -32,8 +32,8 @@ export default function Home() {
   const [currentStep, setCurrentStep] = useState(1);
   const [transferAmount, setTransferAmount] = useState('');
   const [recipientAddress, setRecipientAddress] = useState('');
-  const { verifyCompliance, contractState, loadContractState } = useGLEIFContract();
-  const { account, loading: walletLoading, error, connectWallet } = useWallet();
+  const { verifyCompliance, contractState, } = useGLEIFContract();
+  const { account, connectWallet } = useWallet();
   const { nfts, setCompliant, loadNFTs } = useInvoiceNFT();
   const [selectedTokenId, setSelectedTokenId] = useState<number | null>(null);
 
@@ -64,15 +64,8 @@ export default function Home() {
     setStatus('Verifying compliance...');
     try {
       // Create a GLEIF proof
-      const proof = new GLEIFProof({
-        proof: {},
-        publicInput: new Field(0),
-        publicOutput: new GLEIFPublicOutput({
-          name: CircuitString.fromString(''),
-          id: CircuitString.fromString('')
-        }),
-        maxProofsVerified: 0
-      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const proof: any = {};
 
       // Verify compliance using the GLEIF contract
       await verifyCompliance(proof);

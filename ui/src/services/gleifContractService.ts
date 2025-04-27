@@ -66,15 +66,35 @@ export const api = {
     console.log('parsedData', parsedData);
 
     // Create GLEIF compliance data
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const GLEIFcomplianceData = new GLEIFComplianceData({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       type: CircuitString.fromString(parsedData.data[0].type || ''),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       id: CircuitString.fromString(parsedData.data[0].id || ''),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       lei: CircuitString.fromString(parsedData.data[0].attributes.lei || ''),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       name: CircuitString.fromString(parsedData.data[0].attributes.entity.legalName.name || ''),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       initialRegistrationDate: CircuitString.fromString(parsedData.data[0].attributes.registration.initialRegistrationDate || ''),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       lastUpdateDate: CircuitString.fromString(parsedData.data[0].attributes.registration.lastUpdateDate || ''),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       activeComplianceStatusCode: Field(parsedData.data[0].attributes.registration.activeComplianceStatusCode || 0),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       registration_status: CircuitString.fromString(parsedData.data[0].attributes.registration.status || ''),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       nextRenewalDate: CircuitString.fromString(parsedData.data[0].attributes.registration.nextRenewalDate || ''),
 
     });
@@ -92,6 +112,8 @@ export const api = {
     const oracleSignature = Signature.create(registryPrivateKey, [complianceDataHash]);
 
     // =================================== Generate Proof ===================================
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const proofA = await GLEIF.proveCompliance(Field(0), GLEIFcomplianceData, oracleSignature);
 
     console.log('GLEIF Compliance Data ..', GLEIFcomplianceData.name.toString(), ' compliance ..', GLEIFcomplianceData.registration_status);

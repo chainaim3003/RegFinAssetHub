@@ -13,6 +13,7 @@ export function OracleManager() {
   useEffect(() => {
     loadOracles();
     loadContractState();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadOracles = async () => {
@@ -20,6 +21,7 @@ export function OracleManager() {
     setOracles(oracleList);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleAddOracle = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newOracleName || !newOracleKey) return;

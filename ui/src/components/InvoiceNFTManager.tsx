@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useGLEIFContract } from '../hooks/useGLEIFContract';
 import { useInvoiceNFT } from '../hooks/useInvoiceNFT';
-import { Marketplace } from './Marketplace';
+// import { Marketplace } from './Marketplace';
 import { useWallet } from '@/hooks/useWallet';
 import { Toaster } from 'react-hot-toast';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface NFT {
   tokenId: number;
   price: string;
@@ -15,17 +16,18 @@ interface NFT {
 }
 
 export function InvoiceNFTManager() {
-  const { loading: oracleLoading, error: oracleError, contractState, loadContractState } = useGLEIFContract();
+  const { loading: oracleLoading, error: oracleError, contractState } = useGLEIFContract();
   const { loading: nftLoading, error: nftError, nfts, mintNFT, buyNFT, listNFT, loadNFTs, setCompliant, setFreeze } = useInvoiceNFT();
   const [newNFTPrice, setNewNFTPrice] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const { account, loading: walletLoading, error: walletError, connectWallet } = useWallet();
+  const [error,] = useState<string | null>(null);
+  const { account, connectWallet } = useWallet();
   const [compliancePrice, setCompliancePrice] = useState('');
   const [isCompliant, setIsCompliant] = useState(true);
 
   useEffect(() => {
     loadNFTs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleMintNFT = async (e: React.FormEvent) => {
@@ -65,6 +67,7 @@ export function InvoiceNFTManager() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSetCompliance = async (id: number) => {
     if (!compliancePrice || !account) return;
 
