@@ -10,16 +10,25 @@ Tokenization needs many standards for Inst Defi / RWA / Tokenization to bring of
 ## What are these Regulations - Compliance / Standards? In What Real Use-cases ?
 
   Electronic Bill of Lading (UK):2023; European MICA – 2024
+  
 	Singapore – MLETR ( Model Law for Electronic Transmission of Records): 2023
+ 
 	US:  Institutional ETFs: 2024;  Banks can own Digital Assets – Mar 2025
+ 
 	Stable Coin Bill: Q1/Q2 : 2025 ; Market Structure: Q1/Q2 2025
+ 
 	Compliance: Basel 3  / Derivative: Bank of International Settlements
+ 
 	Standards: ACTUS ( Unified language for next-generation Finance) (www.actusfrf.org)
 				- FDIC / ECB working with ACTUS.
 	DCSA( elecrtonic Bill of lading 3.0 )	eBillofLading3.0Swagger
+ 
 	GLEIF: Global Financial Stability https://www.gleif.org/en
+ 
 	BPMN – https://www.bpmn.org/ Business Process Modeling Language - to depict any process
+ 
        CHAINAIM is actively participating in many of them
+       
   to build EFFECTIVE digital asset representations of off-chain physical things 
 	for effective compliance and execution guardrails.
 
